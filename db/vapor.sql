@@ -49,9 +49,9 @@ INSERT INTO usuarios (nombre, password)
 VALUES ('PepeMzero', crypt('pepe', gen_salt('bf', 10)))
       ,('admin', crypt('admin', gen_salt('bf', 10)));
 
-INSERT INTO juegos (titulo, descripcion, precio)
-VALUES ('Rocket League', 'Futbol con coches', 19.99)
-      ,('Counter Strike: Global Offensive', 'Entrega de shooter de Valve', 0);
+INSERT INTO juegos (titulo, descripcion, precio, imagen)
+VALUES ('Rocket League', 'Futbol con coches', 19.99, 'https://steamcdn-a.akamaihd.net/steam/apps/252950/header_alt_assets_5.jpg?t=1549059561')
+      ,('Counter Strike: Global Offensive', 'Entrega de shooter de Valve', 0, 'https://steamcdn-a.akamaihd.net/steam/apps/730/header.jpg?t=1544148568');
 
 INSERT INTO comentarios (voto, opinion, usuario_id, juego_id)
 VALUES (true, 'No esta mal', 1, 1)

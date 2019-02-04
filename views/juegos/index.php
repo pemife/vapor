@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -19,18 +20,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="col_md_8">
         <table class="table">
-            <?php foreach ($juegos as $juego): ?>
-                <a href="<?= Url::to('', ['juegos/view', 'id' => $juego->id]) ?>">
-                <tr>
-                    <div class="">
-                        <td><img src="<?= Html::encode($juego->imagen) ?>" width="150" height="75"></td>
-                        <td><?= Html::encode($juego->titulo) ?></td>
-                        <td><?= Html::encode($juego->descripcion) ?></td>
-                        <td></td>
-                    </div>
-                </tr>
+            <tbody>
+                <?php foreach ($juegos as $juego): ?>
+                <a href="<?= Url::to(['juegos/view', 'id' => $juego->id]) ?>">
+                    <tr>
+                        <div class="">
+                            <td><img src="<?= Html::encode($juego->imagen) ?>" width="150" height="75"></td>
+                            <td><?= Html::encode($juego->titulo) ?></td>
+                            <td><?= Html::encode($juego->descripcion) ?></td>
+                            <td></td>
+                        </div>
+                    </tr>
                 </a>
-            <?php endforeach ?>
+
+                <?php endforeach ?>
+            </tbody>
         </table>
     </div>
 

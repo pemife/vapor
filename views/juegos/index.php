@@ -34,7 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'html',
             ],
-            'titulo',
+            [
+                'attribute' => 'titulo',
+                'value' => function ($model){
+                    return '<a href="' .
+                    Url::to(['juegos/view', 'id' => $model->id]) .
+                    '">' . Html::encode($model->titulo) . '</a>';
+                },
+                'format' => 'html',
+            ],
             'descripcion:ntext',
             'precio:currency',
             //'dev',

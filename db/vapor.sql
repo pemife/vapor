@@ -43,6 +43,14 @@ CREATE TABLE comentarios
                                     ON UPDATE CASCADE
 );
 
+DROP TABLE IF EXISTS galerias CASCADE;
+
+CREATE TABLE galerias
+(
+    id              BIGSERIAL        PRIMARY KEY
+  , portada         TEXT             NOT NULL
+);
+
 -- INSERTS --
 
 INSERT INTO usuarios (nombre, password)

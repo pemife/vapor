@@ -27,19 +27,25 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'imagen',
                 'value' => function ($model){
-                    return '<a href="' .
-                    Url::to(['juegos/view', 'id' => $model->id]) .
-                    '"><img src="' . Html::encode($model->imagen) .
-                    '" width="150" height="75"></a>';
+                    return Html::a(
+                        Html::img(Html::encode($model->imagen),
+                            [
+                                'height' => '75',
+                                'width' => '150',
+                            ]
+                        ),
+                        ['juegos/view', 'id' => $model->id]
+                    );
                 },
                 'format' => 'html',
             ],
             [
                 'attribute' => 'titulo',
                 'value' => function ($model){
-                    return '<a href="' .
-                    Url::to(['juegos/view', 'id' => $model->id]) .
-                    '">' . Html::encode($model->titulo) . '</a>';
+                    return Html::a(
+                        Html::encode($model->titulo),
+                        ['juegos/view', 'id' => $model->id]
+                    );
                 },
                 'format' => 'html',
             ],

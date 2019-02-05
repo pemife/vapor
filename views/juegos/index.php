@@ -1,9 +1,11 @@
 <?php
 
 use yii\helpers\Html;
+use yii\grid\GridView;
 use yii\helpers\Url;
 
 /* @var $this yii\web\View */
+/* @var $searchModel app\models\JuegosSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Juegos';
@@ -12,30 +14,34 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="juegos-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Nuevo Juego', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Juegos', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            [
+                'attribute' => 'imagen',
+                'value' => function ($model){
+                    return '<a href="' .
+                    Url::to(['juegos/view', 'id' => $model->id]) .
+                    '"><img src="' . Html::encode($model->imagen) .
+                    '" width="150" height="75"></a>';
+                },
+                'format' => 'html',
+            ],
+            'titulo',
+            'descripcion:ntext',
+            'precio:currency',
+            //'dev',
+            //'publisher',
+            'fecha_salida:date',
 
-    <div class="col_md_8">
-        <table class="table">
-            <tbody>
-                <?php foreach ($juegos as $juego): ?>
-                <a href="<?= Url::to(['juegos/view', 'id' => $juego->id]) ?>">
-                    <tr>
-                        <div class="">
-                            <td><img src="<?= Html::encode($juego->imagen) ?>" width="150" height="75"></td>
-                            <td><?= Html::encode($juego->titulo) ?></td>
-                            <td><?= Html::encode($juego->descripcion) ?></td>
-                            <td></td>
-                        </div>
-                    </tr>
-                </a>
-
-                <?php endforeach ?>
-            </tbody>
-        </table>
-    </div>
-
+            ['class' => 'yii\grid\ActionColumn'],
+        ],
+    ]); ?>
 </div>

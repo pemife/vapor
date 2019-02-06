@@ -17,8 +17,8 @@ class JuegosSearch extends Juegos
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['titulo', 'descripcion', 'imagen', 'dev', 'publisher', 'fecha_salida'], 'safe'],
+            [['id', 'portada'], 'integer'],
+            [['titulo', 'descripcion', 'dev', 'publisher', 'fecha_salida'], 'safe'],
             [['precio'], 'number'],
         ];
     }
@@ -62,11 +62,11 @@ class JuegosSearch extends Juegos
             'id' => $this->id,
             'precio' => $this->precio,
             'fecha_salida' => $this->fecha_salida,
+            'portada' => $this->portada,
         ]);
 
         $query->andFilterWhere(['ilike', 'titulo', $this->titulo])
             ->andFilterWhere(['ilike', 'descripcion', $this->descripcion])
-            ->andFilterWhere(['ilike', 'imagen', $this->imagen])
             ->andFilterWhere(['ilike', 'dev', $this->dev])
             ->andFilterWhere(['ilike', 'publisher', $this->publisher]);
 

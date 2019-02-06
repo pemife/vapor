@@ -18,13 +18,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'precio')->textInput() ?>
 
-    <?= $form->field($model, 'imagen')->textarea(['rows' => 6]) ?>
-
     <?= $form->field($model, 'dev')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'publisher')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'fecha_salida')->textInput() ?>
+
+    <?= $form->field($model, 'portada')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

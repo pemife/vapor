@@ -20,10 +20,12 @@ CREATE TABLE juegos
   , descripcion     TEXT
   , precio          NUMERIC(5,2)  CONSTRAINT ck_juego_precio_positivo
                                   CHECK (coalesce(precio, 0) >= 0)
-  , imagen          TEXT
   , dev             VARCHAR(32)
   , publisher       VARCHAR(32)
   , fecha_salida    DATE          DEFAULT CURRENT_TIMESTAMP
+  , portada         BIGINT        REFERENCES galerias (id)
+                                  ON DELETE NO ACTION
+                                  ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS comentarios CASCADE;
@@ -48,7 +50,10 @@ DROP TABLE IF EXISTS galerias CASCADE;
 CREATE TABLE galerias
 (
     id              BIGSERIAL        PRIMARY KEY
-  , portada         TEXT             NOT NULL
+  , imagen          TEXT             NOT NULL
+  , juego_id        BIGINT           REFERENCES juegos (id)
+                                     ON DELETE NO ACTION
+                                     ON UPDATE CASCADE
 );
 
 -- INSERTS --
@@ -57,10 +62,14 @@ INSERT INTO usuarios (nombre, password)
 VALUES ('PepeMzero', crypt('pepe', gen_salt('bf', 10)))
       ,('admin', crypt('admin', gen_salt('bf', 10)));
 
-INSERT INTO juegos (titulo, descripcion, precio, imagen)
-VALUES ('Rocket League', 'Futbol con coches', 19.99, 'https://steamcdn-a.akamaihd.net/steam/apps/252950/header_alt_assets_5.jpg?t=1549059561')
-      ,('Counter Strike: Global Offensive', 'Entrega de shooter de Valve', 0, 'https://steamcdn-a.akamaihd.net/steam/apps/730/header.jpg?t=1544148568');
+INSERT INTO juegos (titulo, descripcion, precio)
+VALUES ('Rocket League', 'Futbol con coches', 19.99)
+      ,('Counter Strike: Global Offensive', 'Entrega de shooter de Valve', 0);
 
 INSERT INTO comentarios (voto, opinion, usuario_id, juego_id)
 VALUES (true, 'No esta mal', 1, 1)
       ,(false, 'Vaya porqueria', 1, 2);
+
+INSERT INTO galerias (imagen, juego_id)
+VALUES ('https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjDmb3K56fgAhWszYUKHRYqBLgQjRx6BAgBEAU&url=https%3A%2F%2Fgiphy.com%2Fgifs%2Frickroll-rick-astley-never-gonna-give-you-up-Vuw9m5wXviFIQ&psig=AOvVaw3F27MWrW5cNAExmUyJQn8K&ust=1549566603955471', 1)
+      ,('https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwjDmb3K56fgAhWszYUKHRYqBLgQjRx6BAgBEAU&url=https%3A%2F%2Fgiphy.com%2Fgifs%2Frickroll-rick-astley-never-gonna-give-you-up-Vuw9m5wXviFIQ&psig=AOvVaw3F27MWrW5cNAExmUyJQn8K&ust=1549566603955471', 2);

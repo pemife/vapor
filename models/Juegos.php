@@ -11,12 +11,13 @@ use Yii;
  * @property string $titulo
  * @property string $descripcion
  * @property string $precio
- * @property string $imagen
  * @property string $dev
  * @property string $publisher
  * @property string $fecha_salida
+ * @property int $portada
  *
  * @property Comentarios[] $comentarios
+ * @property Galerias[] $galerias
  */
 class Juegos extends \yii\db\ActiveRecord
 {
@@ -35,9 +36,11 @@ class Juegos extends \yii\db\ActiveRecord
     {
         return [
             [['titulo'], 'required'],
-            [['descripcion', 'imagen'], 'string'],
+            [['descripcion'], 'string'],
             [['precio'], 'number'],
             [['fecha_salida'], 'safe'],
+            [['portada'], 'default', 'value' => null],
+            [['portada'], 'integer'],
             [['titulo'], 'string', 'max' => 255],
             [['dev', 'publisher'], 'string', 'max' => 32],
             [['titulo'], 'unique'],
@@ -54,10 +57,10 @@ class Juegos extends \yii\db\ActiveRecord
             'titulo' => 'Titulo',
             'descripcion' => 'Descripcion',
             'precio' => 'Precio',
-            'imagen' => 'Imagen',
             'dev' => 'Dev',
             'publisher' => 'Publisher',
             'fecha_salida' => 'Fecha Salida',
+            'portada' => 'Portada',
         ];
     }
 
@@ -67,5 +70,13 @@ class Juegos extends \yii\db\ActiveRecord
     public function getComentarios()
     {
         return $this->hasMany(Comentarios::className(), ['juego_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getGalerias()
+    {
+        return $this->hasMany(Galerias::className(), ['juego_id' => 'id']);
     }
 }
